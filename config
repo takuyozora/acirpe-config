@@ -1,0 +1,14 @@
+#!/bin/bash
+
+chmod +x src/config.py
+echo "Lancement de l'outil d'analyse de l'ordianteur"
+echo -n "Mot de passe : "
+if [ -z "/usr/bin/gksudo" ]; then
+	gksudo env python3 "$(pwd)"/src/config.py 2> "$(pwd)"/.errors
+elif [ -z "/usr/bin/sudo" ]; then
+	sudo env python3 "$(pwd)"/src/config.py 2> "$(pwd)"/.errors
+else
+	su -c "env python3 \"$(pwd)\"/src/config.py" 2> "$(pwd)"/.errors
+fi
+
+exit 0
